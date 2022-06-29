@@ -14,7 +14,6 @@ i = 0
 
 set = re.findall("\"+(-?\d+(\.\d+)?)\s*", str(cont))
 
-
 df = pd.DataFrame(set)
 df.drop(columns=1, inplace=True)
 df.drop([0,1],inplace=True)
@@ -31,9 +30,9 @@ df["long"] = second_col
 df = df.astype(float, errors="raise")
 
 
-print(df)
+print(df.loc[:,"long"])
 
-plt.plot(df)
+plt.plot(df.loc[:,"0"], df.loc[:,"long"])
 
 def linear_calculation(x1, x2):
     z = x2[0] - x1[0] 
@@ -53,6 +52,5 @@ for x in df.index:
         x1 = x
 
     # linear_calculation(x1, x2)
-
 
 plt.show()
