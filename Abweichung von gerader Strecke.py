@@ -33,7 +33,7 @@ df = df.astype(float, errors="raise")
 x = df.loc[:,"lat"]
 y = df.loc[:,"long"]
 
-# plt.plot(x,y)
+plt.plot(x,y)
 n=0
 
 def gradient_calculator(x_y_val):
@@ -48,7 +48,8 @@ def gradient_calculator(x_y_val):
         else: 
             x1 = x2
             x2 = x
-        z.append(x2 - x1)
+        if x1 == 0 or x2 == 0:
+            z.append(x2 - x1)
     return z
 
 lat = gradient_calculator(x)
@@ -57,7 +58,6 @@ long = gradient_calculator(y)
 for x in lat:
     for y in long:
         z = x / y
-        
 
 print(z)
 
