@@ -49,16 +49,21 @@ def gradient_calculator(x_y_val):
             x1 = x2
             x2 = x
         if x1 == 0 or x2 == 0:
-            z.append(x2 - x1)
+            pass
+        else:
+            d = x2 - x1    
+            z.append(d)
     return z
 
 lat = gradient_calculator(x)
 long = gradient_calculator(y)
 
+gradOverTime = []
+
+print(lat)
+
 for x in lat:
-    for y in long:
-        z = x / y
-
-print(z)
-
-plt.show()
+    print("hi")
+    # for y in long:
+        # z = x / y
+        # gradOverTime.append(z)
