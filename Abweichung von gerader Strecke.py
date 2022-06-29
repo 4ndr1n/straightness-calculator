@@ -25,32 +25,40 @@ second_col.reset_index(drop=True,inplace=True)
 df.drop(index=df.index[1::2],inplace=True)
 df.dropna(inplace=True)
 df.reset_index(drop=True,inplace=True)
+df.columns = ['lat']
 df["long"] = second_col
 
 df = df.astype(float, errors="raise")
 
+x = df.loc[:,"lat"]
+y = df.loc[:,"long"]
 
-print(df.loc[:,"long"])
-
-plt.plot(df.loc[:,"0"], df.loc[:,"long"])
-
-def linear_calculation(x1, x2):
-    z = x2[0] - x1[0] 
-    y = x2[1] - x1[1]
-
+# plt.plot(x,y)
 n=0
-x1 = 0
-x2 = 0
 
-for x in df.index:
-    if x1 == 0:
-        x1 = x
-    elif x2 == 0:
-        x2 = x
-    else: 
-        x2 = x1
-        x1 = x
+def gradient_calculator(x_y_val):
+    x1 = 0
+    x2 = 0
+    z = []
+    for x in x_y_val:
+        if x1 == 0:
+            x1 = x
+        elif x2 == 0:
+            x2 = x
+        else: 
+            x1 = x2
+            x2 = x
+        z.append(x2 - x1)
+    return z
 
-    # linear_calculation(x1, x2)
+lat = gradient_calculator(x)
+long = gradient_calculator(y)
+
+for x in lat:
+    for y in long:
+        z = x / y
+        
+
+print(z)
 
 plt.show()
