@@ -1,3 +1,4 @@
+from itertools import count
 import re
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -60,10 +61,16 @@ long = gradient_calculator(y)
 
 gradOverTime = []
 
-print(lat)
-
+n = 0
 for x in lat:
-    print("hi")
-    # for y in long:
-        # z = x / y
-        # gradOverTime.append(z)
+    n += 1
+
+
+for x in range(n):
+    if lat[x] == 0 or lat[x] == 0.0:
+        print(lat[x])
+    else:
+        gradOverTime.append(lat[x] / long[x])
+        # print(lat[x])
+
+print(gradOverTime)
