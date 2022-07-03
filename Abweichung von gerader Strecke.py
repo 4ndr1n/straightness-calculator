@@ -61,16 +61,27 @@ long = gradient_calculator(y)
 
 gradOverTime = []
 
+
 n = 0
 for x in lat:
     n += 1
 
+y_creator = 0
 
 for x in range(n):
-    if lat[x] == 0 or lat[x] == 0.0:
-        print(lat[x])
+    if long[x] == 0 or long[x] == 0.0:
+        pass
     else:
+        y_creator += 1
         gradOverTime.append(lat[x] / long[x])
-        # print(lat[x])
 
-print(gradOverTime)
+y_ax = np.arange(0,y_creator)
+
+npGradOverTime = np.array(gradOverTime)
+
+percentGrad = npGradOverTime * 100
+
+print(percentGrad)
+plt.plot(y_ax, percentGrad)
+
+plt.show()
