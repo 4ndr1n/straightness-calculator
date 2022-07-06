@@ -82,6 +82,6 @@ npGradOverTime = np.array(gradOverTime)
 percentGrad = npGradOverTime * 100
 
 print(percentGrad)
-plt.plot(y_ax, percentGrad)
+# plt.plot(y_ax, percentGrad)
 
 plt.show()
