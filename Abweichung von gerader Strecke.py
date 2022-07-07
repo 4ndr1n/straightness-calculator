@@ -5,7 +5,6 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
 
-
 def getFile():
     file = input()
 
@@ -78,11 +77,13 @@ def findGradOverTime(lat,long):
     findTurn(gradOverTime)
 
 def findTurn(grad):
+    manualIndex = 0
     indexList = []
 
     for x in grad:
+        manualIndex += 1
         if x > 0:
-            indexList.append(x)
+            indexList.append(manualIndex)
 
     print(indexList)
 
