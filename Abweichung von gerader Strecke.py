@@ -1,41 +1,47 @@
 from itertools import count
+from operator import index
 import re
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
 
-file = input()
 
-if file == "":
-    file = "/Users/Andrin/Desktop/activity_8914463883.gpx"
+def getFile():
+    file = input()
 
-file = open(file)
-cont = file.readlines()
-i = 0
+    if file == "":
+        file = "/Users/Andrin/Desktop/activity_8914463883.gpx"
+    return file
 
-set = re.findall("\"+(-?\d+(\.\d+)?)\s*", str(cont))
+def getData():
+    i = 0
+    file = open(getFile())
+    cont = file.readlines()
 
-df = pd.DataFrame(set)
-df.drop(columns=1, inplace=True)
-df.drop([0,1],inplace=True)
-df.reset_index(drop=True,inplace=True)
+    set = re.findall("\"+(-?\d+(\.\d+)?)\s*", str(cont))
 
-second_col = df[1::2]
-second_col.dropna()
-second_col.reset_index(drop=True,inplace=True)
-df.drop(index=df.index[1::2],inplace=True)
-df.dropna(inplace=True)
-df.reset_index(drop=True,inplace=True)
-df.columns = ['lat']
-df["long"] = second_col
+    df = pd.DataFrame(set)
+    df.drop(columns=1, inplace=True)
+    df.drop([0,1],inplace=True)
+    df.reset_index(drop=True,inplace=True)
 
-df = df.astype(float, errors="raise")
+    second_col = df[1::2]
+    second_col.dropna()
+    second_col.reset_index(drop=True,inplace=True)
+    df.drop(index=df.index[1::2],inplace=True)
+    df.dropna(inplace=True)
+    df.reset_index(drop=True,inplace=True)
+    df.columns = ['lat']
+    df["long"] = second_col
 
-x = df.loc[:,"lat"]
-y = df.loc[:,"long"]
+    df = df.astype(float, errors="raise")
 
-plt.plot(x,y)
-n=0
+    x = df.loc[:,"lat"]
+    y = df.loc[:,"long"]
+
+    lat = gradient_calculator(x)
+    long = gradient_calculator(y)
+    return lat,long
 
 def gradient_calculator(x_y_val):
     x1 = 0
@@ -56,28 +62,32 @@ def gradient_calculator(x_y_val):
             z.append(d)
     return z
 
-lat = gradient_calculator(x)
-long = gradient_calculator(y)
 
-gradOverTime = []
+def findGradOverTime(lat,long):
+    gradOverTime = []
+    n = 0
+    for x in lat:
+        n += 1
 
+    for x in range(n):
+        if long[x] == 0 or long[x] == 0.0:
+            pass
+        else:
+            gradOverTime.append(lat[x] / long[x])
+    
+    findTurn(gradOverTime)
 
-n = 0
-for x in lat:
-    n += 1
+def findTurn(grad):
+    indexList = []
 
-y_creator = 0
+    for x in grad:
+        if x > 0:
+            indexList.append(x)
 
-for x in range(n):
-    if long[x] == 0 or long[x] == 0.0:
-        pass
-    else:
-        y_creator += 1
-        gradOverTime.append(lat[x] / long[x])
+    print(indexList)
 
-y_ax = np.arange(0,y_creator)
-
-# plt.plot(y_ax, percentGrad)
-
+def main():
+    lat, long = getData()
+    turn = findGradOverTime(lat,long)
 
 plt.show()
