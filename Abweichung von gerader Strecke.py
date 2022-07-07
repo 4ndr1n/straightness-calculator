@@ -67,31 +67,17 @@ for x in lat:
     n += 1
 
 y_creator = 0
-zeroCounter = 0
 
 for x in range(n):
     if long[x] == 0 or long[x] == 0.0:
-        zeroCounter += 1
+        pass
     else:
         y_creator += 1
         gradOverTime.append(lat[x] / long[x])
 
 y_ax = np.arange(0,y_creator)
 
-npGradOverTime = np.array(gradOverTime)
-
-percentGrad = npGradOverTime * 100
-
-print(percentGrad)
-f = open("/Users/Andrin/Desktop/new.csv","w")
-
-for x in percentGrad:
-    y = str(x)
-    z = y + "\n"
-    f.write(z)
-
-print(zeroCounter)
-f.write(percentGrad)
 # plt.plot(y_ax, percentGrad)
+
 
 plt.show()
