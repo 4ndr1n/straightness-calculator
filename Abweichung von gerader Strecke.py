@@ -42,18 +42,19 @@ def getData():
     long = gradient_calculator(y)
     return lat,long
 
+def getTwoVals(x):
+    if x1 == 0:
+        x1 = x
+    elif x2 == 0:
+        x2 = x
+    else: 
+        x1 = x2
+        x2 = x
+
 def gradient_calculator(x_y_val):
-    x1 = 0
-    x2 = 0
     z = []
     for x in x_y_val:
-        if x1 == 0:
-            x1 = x
-        elif x2 == 0:
-            x2 = x
-        else: 
-            x1 = x2
-            x2 = x
+        x1, x2 = getTwoVals(x)
         if x1 == 0 or x2 == 0:
             pass
         else:
@@ -84,7 +85,13 @@ def findTurn(grad):
         if x < 0:
             indexList.append(manualIndex)
 
+    for x in indexList:
+
+
+
     print(indexList)
+
+
 
 def main():
     lat, long = getData()
