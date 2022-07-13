@@ -81,7 +81,7 @@ def findTurn(grad):
 
     for x in grad:
         manualIndex += 1
-        if x > 0:
+        if x < 0:
             indexList.append(manualIndex)
 
     print(indexList)
