@@ -61,7 +61,6 @@ def gradient_calculator(x_y_val):
             z.append(d)
     return z
 
-
 def findGradOverTime(lat,long):
     gradOverTime = []
     n = 0
@@ -91,4 +90,7 @@ def main():
     lat, long = getData()
     turn = findGradOverTime(lat,long)
 
-plt.show()
+
+
+if __name__ == "__main__":
+    main()

@@ -1,6 +1,14 @@
 if -1 < 0:
     print("hi")
 
+def main():
+    print("Yeah")
+
+
+if __name__ == "__main__":
+    main()
+
+
 
 # Print a csv of the data
 """
