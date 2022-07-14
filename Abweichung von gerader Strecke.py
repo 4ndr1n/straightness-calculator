@@ -75,6 +75,8 @@ class  find:
             else:
                 gradOverTime.append(lat[x] / long[x])
         # export.outToCsv(gradOverTime)
+        plt.plot(gradOverTime)
+        plt.show()
         return gradOverTime
 
     def findTurn(grad):
@@ -86,6 +88,8 @@ class  find:
         dif = 0
 
         for x in grad:
+            # vergleich der Steigung unter sich. 
+            # x1 - x2 und schwellwert. Wenn dieser überschritten wird, wird # der Index notiert. Der Schwellwert kann recht gross sein, da # # von einer 180° Drehung ausgegangen wird. 
             manualIndex += 1
             if x < 0:
                 indexList.append(manualIndex)
@@ -123,8 +127,8 @@ class export:
             xm.append(x[n])
             ym.append(y[n])
 
-        plt.plot(x,y,color='k')
-        plt.scatter(xm,ym,color='g')
+        plt.scatter(xm,ym,color='k')
+        plt.plot(x,y,color='g')
         plt.show()
 
 
@@ -136,7 +140,7 @@ def main():
 
     gradOverTime = find.findGradOverTime(lat,long)
     turn = find.findTurn(gradOverTime)
-    export.printGraph(x,y,turn)
+    # export.printGraph(x,y,turn)
 
 
 if __name__ == "__main__":
