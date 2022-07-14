@@ -42,7 +42,7 @@ def getData():
     long = gradient_calculator(y)
     return lat,long
 
-def getTwoVals(x):
+def getTwoVals(x1,x2,x):
     if x1 == 0:
         x1 = x
     elif x2 == 0:
@@ -50,12 +50,15 @@ def getTwoVals(x):
     else: 
         x1 = x2
         x2 = x
+    return x1, x2
 
 def gradient_calculator(x_y_val):
     z = []
+    x1=0
+    x2=0
     for x in x_y_val:
-        x1, x2 = getTwoVals(x)
-        if x1 == 0 or x2 == 0:
+        x1, x2 = getTwoVals(x1,x2,x)
+        if x1 == x:
             pass
         else:
             d = x2 - x1    
@@ -73,30 +76,39 @@ def findGradOverTime(lat,long):
             pass
         else:
             gradOverTime.append(lat[x] / long[x])
-    
-    findTurn(gradOverTime)
+    return gradOverTime
 
 def findTurn(grad):
     manualIndex = 0
     indexList = []
+    prunedIndex = []
+    x1 = 0
+    x2 = 0
+    dif = 0
 
     for x in grad:
         manualIndex += 1
         if x < 0:
             indexList.append(manualIndex)
-
     for x in indexList:
+        x1,x2 = getTwoVals(x1,x2,x)
+        if x1 == x:
+            prunedIndex.append(x)
+            pass
+        else:
+            dif = x2 - x1
 
-
-
-    print(indexList)
-
+        if dif > 20:
+            prunedIndex.append(x)
+        else:
+            pass
+    print(prunedIndex)
 
 
 def main():
     lat, long = getData()
-    turn = findGradOverTime(lat,long)
-
+    gradOverTime = findGradOverTime(lat,long)
+    turn = findTurn(gradOverTime)
 
 
 if __name__ == "__main__":
