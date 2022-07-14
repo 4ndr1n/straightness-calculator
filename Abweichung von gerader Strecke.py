@@ -97,7 +97,7 @@ class  find:
             else:
                 dif = x2 - x1
 
-            if dif > 30:
+            if dif > 15:
                 prunedIndex.append(x)
             else:
                 pass
@@ -116,8 +116,15 @@ class export:
         f.write(gradOverTime)
 
     def printGraph(x,y,turn):
-        markers = turn
-        plt.plot(x,y,'-gD',markers)
+        xm = []
+        ym = []
+        n=0
+        for n in turn:
+            xm.append(x[n])
+            ym.append(y[n])
+
+        plt.plot(x,y,color='k')
+        plt.scatter(xm,ym,color='g')
         plt.show()
 
 
