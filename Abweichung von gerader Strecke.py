@@ -1,9 +1,7 @@
-from itertools import count
-from operator import index
 import re
 import matplotlib.pyplot as plt
 import pandas as pd
-import numpy as np
+# import numpy as np
 
 class getStuff:
     def getFile():
@@ -39,9 +37,7 @@ class getStuff:
         x = df.loc[:,"lat"]
         y = df.loc[:,"long"]
 
-        lat = find.gradient_calculator(x)
-        long = find.gradient_calculator(y)
-        return lat,long
+        return x,y
 
     def getTwoVals(x1,x2,x):
         if x1 == 0:
@@ -78,7 +74,7 @@ class  find:
                 pass
             else:
                 gradOverTime.append(lat[x] / long[x])
-        # outToCsv(gradOverTime)
+        # export.outToCsv(gradOverTime)
         return gradOverTime
 
     def findTurn(grad):
@@ -106,20 +102,34 @@ class  find:
             else:
                 pass
         print(prunedIndex)
+        return prunedIndex
 
-def outToCsv(gradOverTime):
-    f = open("/Users/Andrin/Desktop/sarnen.csv","w")
+class export:
 
-    for x in gradOverTime:
-        y = str(x)
-        z = y + "\n"
-        f.write(z)
-    f.write(gradOverTime)
+    def outToCsv(gradOverTime):
+        f = open("/Users/Andrin/Desktop/sarnen.csv","w")
+
+        for x in gradOverTime:
+            y = str(x)
+            z = y + "\n"
+            f.write(z)
+        f.write(gradOverTime)
+
+    def printGraph(x,y,turn):
+        markers = turn
+        plt.plot(x,y,'-gD',markers)
+        plt.show()
+
+
 
 def main():
-    lat, long = getStuff.getData()
+    x,y = getStuff.getData()
+    lat = find.gradient_calculator(x)
+    long = find.gradient_calculator(y)
+
     gradOverTime = find.findGradOverTime(lat,long)
     turn = find.findTurn(gradOverTime)
+    export.printGraph(x,y,turn)
 
 
 if __name__ == "__main__":
