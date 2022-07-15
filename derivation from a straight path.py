@@ -54,13 +54,11 @@ class  find:
         z = []
         x1=0
         x2=0
+        x1, x2 = getStuff.getTwoVals(x1,x2,x_y_val[0])
         for x in x_y_val:
             x1, x2 = getStuff.getTwoVals(x1,x2,x)
-            if x1 == x:
-                pass
-            else:
-                d = x2 - x1    
-                z.append(d)
+            d = x2 - x1    
+            z.append(d)
         return z
 
     def findGradOverTime(lat,long):
@@ -87,21 +85,20 @@ class  find:
         x1 = 0
         x2 = 0
         dif = 0
+        x1,x2=getStuff.getTwoVals(x1,x2,grad[0])
 
         for x in grad:
             manualIndex += 1
+
             x1,x2=getStuff.getTwoVals(x1,x2,x)
             
-            if x2 == 0:
-                getStuff.getTwoVals(x1,x2,x)
-            varGradOT.append(x2-x1)
-            varGrad = x2-x1
-            absGrad = abs(varGrad)
-            absGradOT.append(absGrad)
-            if absGrad > 14:
-                pass
-            elif absGrad > 0.1:
+            relGrad = x2-x1
+            
+            varGradOT.append(relGrad)
+
+            if relGrad > 3 or relGrad < -3:
                 indexList.append(manualIndex)
+
         for x in indexList:
             x1,x2 = getStuff.getTwoVals(x1,x2,x)
             if x1 == x:
@@ -114,8 +111,8 @@ class  find:
                 prunedIndex.append(x)
             else:
                 pass
-        plt.plot(absGradOT)
-        plt.show()
+        #plt.plot(varGradOT)
+        #plt.show()
         
         print(prunedIndex)
         return prunedIndex
