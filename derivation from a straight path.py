@@ -5,7 +5,9 @@ import pandas as pd
 
 class getStuff:
     def getFile():
-        file = input()
+        ip = input()
+
+        file = "/Users/Andrin/Desktop/" + ip
 
         if file == "":
             file = "/Users/Andrin/Desktop/activity_8914463883.gpx"
@@ -49,6 +51,37 @@ class getStuff:
             x2 = x
         return x1, x2
 
+    def getRelGrad(grad):
+        x1 = 0
+        x2 = 0
+        dif = 0
+        varGradOT = []
+        x1,x2=getStuff.getTwoVals(x1,x2,grad[0])
+
+        for x in grad:
+            manualIndex += 1
+
+            x1,x2=getStuff.getTwoVals(x1,x2,x)
+            
+            relGrad = x2-x1
+            
+            varGradOT.append(relGrad)
+    
+        
+        #plt.plot(varGradOT)
+        #plt.show()
+
+
+        return relGrad
+
+    def getOverOrUnder(x2,x1):
+        OOU = []
+        if x2 > x1:
+            OOU.append(True)
+        else:
+            OOU.append(False)
+
+
 class  find:
     def gradient_calculator(x_y_val):
         z = []
@@ -78,26 +111,13 @@ class  find:
     def findTurn(grad):
         indexList = []
         prunedIndex = []
-        varGradOT = []
-        absGradOT = []
         varGrad =0
         manualIndex = 0
-        x1 = 0
-        x2 = 0
-        dif = 0
-        x1,x2=getStuff.getTwoVals(x1,x2,grad[0])
 
-        for x in grad:
-            manualIndex += 1
+        relGrad = getStuff.getRelGrad(grad)
 
-            x1,x2=getStuff.getTwoVals(x1,x2,x)
-            
-            relGrad = x2-x1
-            
-            varGradOT.append(relGrad)
-
-            if relGrad > 3 or relGrad < -3:
-                indexList.append(manualIndex)
+        if relGrad > 3 or relGrad < -3:
+            indexList.append(manualIndex)
 
         for x in indexList:
             x1,x2 = getStuff.getTwoVals(x1,x2,x)
@@ -111,11 +131,10 @@ class  find:
                 prunedIndex.append(x)
             else:
                 pass
-        #plt.plot(varGradOT)
-        #plt.show()
         
         print(prunedIndex)
         return prunedIndex
+
 
 class export:
 
