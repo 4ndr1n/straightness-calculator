@@ -137,6 +137,13 @@ class  find:
         print(prunedIndex)
         return prunedIndex
 
+    def findRelation(grad):
+        x1,x2 = getStuff.GetTwoVals(x1,x2,grad[0])
+        
+
+
+
+
 
 class export:
 
