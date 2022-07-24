@@ -75,11 +75,13 @@ class getStuff:
         return relGrad
 
     def getOverOrUnder(x2,x1):
-        OOU = []
+        OOU = False
         if x2 > x1:
-            OOU.append(True)
+            OOU = True
         else:
-            OOU.append(False)
+            OOU = False
+
+        return OOU
 
 
 class  find:
