@@ -51,21 +51,36 @@ class getStuff:
             x2 = x
         return x1, x2
 
+    def getTwoValsUni(x1,x2,arr,count):
+        if x1 == 0:
+            x1 = arr[0]
+            x2 = arr[1]
+        else:
+            x1 = x2
+            x2 = arr[count]
+
+
     def getRelGrad(grad):
-        x1 = 0
-        x2 = 0
-        dif = 0
         varGradOT = []
+        manualIndex = 0
+        x1=0
+        x2=0
         x1,x2=getStuff.getTwoVals(x1,x2,grad[0])
+
+        
 
         for x in grad:
             manualIndex += 1
+            #count = 2
+            # x1,x2=getStuff.getTwoValsUni(x1,x2,grad,count)
 
             x1,x2=getStuff.getTwoVals(x1,x2,x)
             
             relGrad = x2-x1
             
             varGradOT.append(relGrad)
+            
+            
     
         
         #plt.plot(varGradOT)
@@ -136,14 +151,14 @@ class  find:
         print(prunedIndex)
         return prunedIndex
 
-    def findTendency(grad):
-        tendency = []
+    def biggerOrNot(grad):
+        storage = []
         x1, x2 = getStuff.getTwoVals(x1,x2,grad[0])
 
         for x in grad:
-            tendency.append(getStuff.getOverOrUnder(x2,x1))
+            storage.append(getStuff.getOverOrUnder(x2,x1,x))
 
-        print(tendency)
+        print(storage)
 
 
 
