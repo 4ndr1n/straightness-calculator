@@ -9,7 +9,7 @@ class getStuff:
 
         file = "/Users/Andrin/Desktop/" + ip
 
-        if file == "":
+        if file == "/Users/Andrin/Desktop/":
             file = "/Users/Andrin/Desktop/activity_8914463883.gpx"
         return file
 
@@ -80,7 +80,6 @@ class getStuff:
             OOU = True
         else:
             OOU = False
-
         return OOU
 
 
@@ -136,6 +135,17 @@ class  find:
         
         print(prunedIndex)
         return prunedIndex
+
+    def findTendency(grad):
+        tendency = []
+        x1, x2 = getStuff.getTwoVals(x1,x2,grad[0])
+
+        for x in grad:
+            tendency.append(getStuff.getOverOrUnder(x2,x1))
+
+        print(tendency)
+
+
 
 
 class export:
