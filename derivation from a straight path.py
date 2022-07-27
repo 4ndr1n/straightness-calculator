@@ -79,13 +79,8 @@ class getStuff:
             relGrad = x2-x1
             
             varGradOT.append(relGrad)
-            
-            
-    
-        
         #plt.plot(varGradOT)
         #plt.show()
-
 
         return relGrad
 
@@ -110,7 +105,7 @@ class  find:
             z.append(d)
         return z
 
-    def findGradOverTime(lat,long):
+    def GradOverTime(lat,long):
         gradOverTime = []
         n = 0
         for x in lat:
@@ -124,7 +119,7 @@ class  find:
         # export.outToCsv(gradOverTime)
         return gradOverTime
 
-    def findTurn(grad):
+    def Turn(grad):
         indexList = []
         prunedIndex = []
         varGrad =0
@@ -153,12 +148,20 @@ class  find:
 
     def biggerOrNot(grad):
         storage = []
+        x1=0
+        x2=0
         x1, x2 = getStuff.getTwoVals(x1,x2,grad[0])
 
         for x in grad:
-            storage.append(getStuff.getOverOrUnder(x2,x1,x))
+            x1,x2=getStuff.getTwoVals(x1,x2,x)
+            storage.append(getStuff.getOverOrUnder(x2,x1))
 
-        print(storage)
+        find.Turn2(storage)
+
+    def Turn2(boolArr):
+        for x in boolArr:
+            print("fing Python")
+
 
 
 
@@ -193,9 +196,10 @@ def main():
     lat = find.gradient_calculator(x)
     long = find.gradient_calculator(y)
 
-    gradOverTime = find.findGradOverTime(lat,long)
-    turn = find.findTurn(gradOverTime)
-    export.printGraph(x,y,turn)
+    gradOverTime = find.GradOverTime(lat,long)
+    turn = find.Turn(gradOverTime)
+    newTurn = find.biggerOrNot(gradOverTime)
+    # export.printGraph(x,y,turn)
 
 
 if __name__ == "__main__":
