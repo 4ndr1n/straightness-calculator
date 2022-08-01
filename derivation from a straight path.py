@@ -5,24 +5,19 @@ import pandas as pd
 class getStuff:
 
     def getFile():
-        
-        ip = int(input("""1:21. Juli, 2:26.Juni, 3:Sarnen, 4:30. Juni, enter:standard
+        ip = int(input("""1:21. Juli, 2:26.Juni, 3:Sarnen, 4:30. Juni, 0:standard
         """))
-        
-        if (ip == 1):
-            file = "/Users/Andrin/Desktop/GPX_data/21.\ Juli.gpx"
+        if ip  == 0:
+            file = "/Users/Andrin/Desktop/GPX_data/activity_8914463883.gpx"
+        elif (ip == 1):
+            file = "/Users/Andrin/Desktop/GPX_data/21. Juli.gpx"
         elif (ip==2):
             file = "/Users/Andrin/Desktop/GPX_data/26.Juni.gpx"
         elif (ip==3):
             file = "/Users/Andrin/Desktop/GPX_data/Sarnen.gpx"
         elif ip==4:
-            file = "/Users/Andrin/Desktop/GPX_data/30.\ Juni.gpx"
-        else:
-            file = "/Users/Andrin/Desktop/GPX_data/activity_8914463883.gpx"
-        
+            file = "/Users/Andrin/Desktop/GPX_data/30. Juni.gpx"
         return file
-
-        
 
     def getData():
         i = 0
@@ -96,7 +91,7 @@ class getStuff:
 
     def getOverOrUnder(x2,x1):
         OOU = False
-        if x2 < x1:
+        if x2 > x1:
             OOU = True
         else:
             OOU = False
@@ -145,7 +140,7 @@ class  find:
             else:
                 dif = x2 - x1
 
-            if dif > 50:
+            if dif > 10:
                 prunedIndex.append(x)
             else:
                 pass
@@ -171,8 +166,10 @@ class  find:
         for x in boolArr:
             if x == False:
                 counter += 1
+            else:
+                counter = 0
             
-            if counter == 30:
+            if counter == 6:
                 startIndex.append(fuckingManualIndex)
                 counter = 0
             
@@ -181,7 +178,6 @@ class  find:
         index = find.noise(startIndex)
 
         return index
-
 
 class export:
 
