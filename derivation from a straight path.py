@@ -1,27 +1,28 @@
 import re
 import matplotlib.pyplot as plt
-import pandas as pd
 # import numpy as np
-
+import pandas as pd
 class getStuff:
+
     def getFile():
         
-        ip = input("1:21. Juli, 2:26.Juni, 3:Sarnen, 4:30. Juni, enter:standard")
+        ip = int(input("""1:21. Juli, 2:26.Juni, 3:Sarnen, 4:30. Juni, enter:standard
+        """))
         
-        if ip == 1:
+        if (ip == 1):
             file = "/Users/Andrin/Desktop/GPX_data/21.\ Juli.gpx"
-        
-        if ip==2:
+        elif (ip==2):
             file = "/Users/Andrin/Desktop/GPX_data/26.Juni.gpx"
-        if ip==3:
+        elif (ip==3):
             file = "/Users/Andrin/Desktop/GPX_data/Sarnen.gpx"
         elif ip==4:
             file = "/Users/Andrin/Desktop/GPX_data/30.\ Juni.gpx"
-
         else:
             file = "/Users/Andrin/Desktop/GPX_data/activity_8914463883.gpx"
-
+        
         return file
+
+        
 
     def getData():
         i = 0
