@@ -15,7 +15,7 @@ class getStuff:
             file = "/Users/Andrin/Desktop/GPX_data/26.Juni.gpx"
         elif (ip==3):
             file = "/Users/Andrin/Desktop/GPX_data/Sarnen.gpx"
-        elif ip==4:
+        elif (ip==4):
             file = "/Users/Andrin/Desktop/GPX_data/30. Juni.gpx"
         return file
 
@@ -48,6 +48,7 @@ class getStuff:
         return x,y
 
     def getTwoVals(x1,x2,x):
+        # attempt 1 used unmodified for attempt 2
         if x1 == 0:
             x1 = x
         elif x2 == 0:
@@ -58,6 +59,7 @@ class getStuff:
         return x1, x2
 
     def getTwoValsUni(x1,x2,arr,count):
+        # test
         if x1 == 0:
             x1 = arr[0]
             x2 = arr[1]
@@ -65,31 +67,8 @@ class getStuff:
             x1 = x2
             x2 = arr[count]
 
-    def getRelGrad(grad):
-        varGradOT = []
-        manualIndex = 0
-        x1=0
-        x2=0
-        x1,x2=getStuff.getTwoVals(x1,x2,grad[0])
-
-        
-
-        for x in grad:
-            manualIndex += 1
-            #count = 2
-            # x1,x2=getStuff.getTwoValsUni(x1,x2,grad,count)
-
-            x1,x2=getStuff.getTwoVals(x1,x2,x)
-            
-            relGrad = x2-x1
-            
-            varGradOT.append(relGrad)
-        #plt.plot(varGradOT)
-        #plt.show()
-
-        return relGrad
-
     def getOverOrUnder(x2,x1):
+        # attempt 2
         OOU = False
         if x2 > x1:
             OOU = True
@@ -97,34 +76,16 @@ class getStuff:
             OOU = False
         return OOU
 
+
 class  find:
-    def gradient_calculator(x_y_val):
+    def gradient_calculator(x,y):
         z = []
-        x1=0
-        x2=0
-        x1, x2 = getStuff.getTwoVals(x1,x2,x_y_val[0])
-        for x in x_y_val:
-            x1, x2 = getStuff.getTwoVals(x1,x2,x)
-            d = x2 - x1    
-            z.append(d)
+        for i in range(x.count()):
+            z.append(x[i]/y[i])
         return z
 
-    # Gives back gradient over the course of the route. It's a list of float numbers.
-    def GradOverTime(lat,long):
-        gradOverTime = []
-        n = 0
-        for x in lat:
-            n += 1
-
-        for x in range(n):
-            if long[x] == 0 or long[x] == 0.0:
-                pass
-            else:
-                gradOverTime.append(lat[x] / long[x])
-        # export.outToCsv(gradOverTime)
-        return gradOverTime
-
     def noise(indexList):
+        #attempt 2
         prunedIndex = []
         x1=0
         x2=0
@@ -140,7 +101,7 @@ class  find:
             else:
                 dif = x2 - x1
 
-            if dif > 20:
+            if dif > 10:
                 prunedIndex.append(x)
             else:
                 pass
@@ -148,6 +109,7 @@ class  find:
         return prunedIndex
 
     def biggerOrNot(grad):
+        # attempt 2
         storage = []
         x1=0
         x2=0
@@ -160,29 +122,30 @@ class  find:
         return storage
 
     def Turn(boolArr):
-        countUp = 0
-        countDown = 0
         startIndex = []
         fuckingManualIndex = 0
+        switch = False
+        prevT = False
+        prevF = True
         for x in boolArr:
-            if x == False:
-                countUp += 1
-                countDown = 0
-            else:
-                countDown += 1
-                countUp = 0
-
-            if countUp == 3 or countDown == 3:
-                startIndex.append(fuckingManualIndex)
-                countUp = 0
-                countDown = 0
-
+            if x == switch and switch == False:
+                switch = True
+                if prevF == x:
+                    startIndex.append(fuckingManualIndex)
+                prevF = x
+            elif (x == switch and switch == True):
+                switch = False
+                
+                if prevT == x:
+                    startIndex.append(fuckingManualIndex)
+                prevT = x
             
             fuckingManualIndex += 1
         
-        index = find.noise(startIndex)
+        # index = find.noise(startIndex)
 
-        return index
+        return startIndex
+
 
 class export:
 
@@ -209,14 +172,11 @@ class export:
 
 def main():
     x,y = getStuff.getData()
-    lat = find.gradient_calculator(x)
-    long = find.gradient_calculator(y)
+    grad = find.gradient_calculator(x,y)
 
-    gradOverTime = find.GradOverTime(lat,long)
-    boolArr = find.biggerOrNot(gradOverTime)
-    turn = find.Turn(boolArr)
-
-    export.printGraph(x,y,turn)
+    z = find.biggerOrNot(grad)
+    Index = find.Turn(z)
+    export.printGraph(x,y,Index)
 
 
 if __name__ == "__main__":

@@ -38,53 +38,31 @@ def GradOverTime(lat,long):
     return gradOverTime
 
 
-def Turn(boolArr):
-    # attempt 2
-    countUp = 0
-    countDown = 0
-    startIndex = []
-    fuckingManualIndex = 0
-    for x in boolArr:
-        if x == False:
-            countUp += 1
-            countDown = 0
-        else:
-            countDown += 1
-            countUp = 0
-
-        if countUp == 6 or countDown == 6:
-            startIndex.append(fuckingManualIndex)
-            countUp = 0
-            countDown = 0
+    def getRelGrad(grad):
+        # attempt 1
+        varGradOT = []
+        manualIndex = 0
+        x1=0
+        x2=0
+        x1,x2=getStuff.getTwoVals(x1,x2,grad[0])
 
         
-        fuckingManualIndex += 1
+
+        for x in grad:
+            manualIndex += 1
+            #count = 2
+            # x1,x2=getStuff.getTwoValsUni(x1,x2,grad,count)
+
+            x1,x2=getStuff.getTwoVals(x1,x2,x)
+            
+            relGrad = x2-x1
+            
+            varGradOT.append(relGrad)
+        #plt.plot(varGradOT)
+        #plt.show()
+
+        return relGrad
     
-    index = find.noise(startIndex)
-
-    return index
-
-def biggerOrNot(grad):
-    # attempt 2
-    storage = []
-    x1=0
-    x2=0
-    x1, x2 = getStuff.getTwoVals(x1,x2,grad[0])
-
-    for x in grad:
-        x1,x2=getStuff.getTwoVals(x1,x2,x)
-        storage.append(getStuff.getOverOrUnder(x2,x1))
-
-    return storage
-
-def getOverOrUnder(x2,x1):
-    # attempt 2
-    OOU = False
-    if x2 > x1:
-        OOU = True
-    else:
-        OOU = False
-    return OOU
 
 
 """
