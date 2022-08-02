@@ -140,7 +140,7 @@ class  find:
             else:
                 dif = x2 - x1
 
-            if dif > 10:
+            if dif > 20:
                 prunedIndex.append(x)
             else:
                 pass
@@ -160,18 +160,23 @@ class  find:
         return storage
 
     def Turn(boolArr):
-        counter = 0
+        countUp = 0
+        countDown = 0
         startIndex = []
         fuckingManualIndex = 0
         for x in boolArr:
             if x == False:
-                counter += 1
+                countUp += 1
+                countDown = 0
             else:
-                counter = 0
-            
-            if counter == 6:
+                countDown += 1
+                countUp = 0
+
+            if countUp == 3 or countDown == 3:
                 startIndex.append(fuckingManualIndex)
-                counter = 0
+                countUp = 0
+                countDown = 0
+
             
             fuckingManualIndex += 1
         
