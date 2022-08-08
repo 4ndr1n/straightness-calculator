@@ -142,9 +142,9 @@ class  find:
             
             fuckingManualIndex += 1
         
-        # index = find.noise(startIndex)
+        index = find.noise(startIndex)
 
-        return startIndex
+        return index
 
 
 class export:
