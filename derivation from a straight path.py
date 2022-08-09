@@ -1,4 +1,5 @@
 import re
+from xml.dom import minicompat
 import matplotlib.pyplot as plt
 # import numpy as np
 import pandas as pd
@@ -65,7 +66,6 @@ class getStuff:
             x2 = arr[count]
 
     def getOverOrUnder(x2,x1):
-        # attempt 2
         OOU = False
         if x2 > x1:
             OOU = True
@@ -138,10 +138,16 @@ class  find:
                 prevT = x
             
             fuckingManualIndex += 1
-        
+
         index = find.noise(startIndex)
 
         return index
+
+    def Peaks(z):
+
+
+
+        print(z.sort())
 
 
 class export:
@@ -172,6 +178,7 @@ def main():
     grad = find.gradient_calculator(x,y)
 
     z = find.biggerOrNot(grad)
+    Index2 = find.Peaks(grad)
     Index = find.Turn(z)
     export.printGraph(x,y,Index)
 
