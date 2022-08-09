@@ -7,16 +7,13 @@ class getStuff:
     def getFile():
         ip = int(input("""1:21. Juli, 2:26.Juni, 3:Sarnen, 4:30. Juni, 0:standard
         """))
-        if ip  == 0:
-            file = "/Users/Andrin/Desktop/GPX_data/activity_8914463883.gpx"
-        elif (ip == 1):
-            file = "/Users/Andrin/Desktop/GPX_data/21. Juli.gpx"
-        elif (ip==2):
-            file = "/Users/Andrin/Desktop/GPX_data/26.Juni.gpx"
-        elif (ip==3):
-            file = "/Users/Andrin/Desktop/GPX_data/Sarnen.gpx"
-        elif (ip==4):
-            file = "/Users/Andrin/Desktop/GPX_data/30. Juni.gpx"
+        
+        files = {0:"/Users/Andrin/Desktop/GPX_data/activity_8914463883.gpx",
+                1:"/Users/Andrin/Desktop/GPX_data/21. Juli.gpx",
+                2:"/Users/Andrin/Desktop/GPX_data/26.Juni.gpx",
+                3:"/Users/Andrin/Desktop/GPX_data/Sarnen.gpx",
+                4:"/Users/Andrin/Desktop/GPX_data/30. Juni.gpx"}
+        file = files.get(ip)
         return file
 
     def getData():
