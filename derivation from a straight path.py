@@ -144,10 +144,12 @@ class  find:
         return index
 
     def Peaks(z):
+        z.sort()
+        
+        botTurn = z[0:3]
+        topTurn = z[-4:-1]
 
-
-
-        print(z.sort())
+        print(botTurn,topTurn)
 
 
 class export:
@@ -177,8 +179,8 @@ def main():
     x,y = getStuff.getData()
     grad = find.gradient_calculator(x,y)
 
-    z = find.biggerOrNot(grad)
     Index2 = find.Peaks(grad)
+    z = find.biggerOrNot(grad)
     Index = find.Turn(z)
     export.printGraph(x,y,Index)
 
