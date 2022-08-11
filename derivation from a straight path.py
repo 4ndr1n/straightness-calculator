@@ -1,5 +1,4 @@
 import re
-from xml.dom import minicompat
 import matplotlib.pyplot as plt
 # import numpy as np
 import pandas as pd
@@ -73,13 +72,12 @@ class getStuff:
             OOU = False
         return OOU
 
-
 class  find:
     def gradient_calculator(x,y):
         z = []
         for i in range(x.count()):
             z.append(x[i]/y[i])
-        
+        export.showGraph(z)
         return z
 
     def noise(indexList):
@@ -121,24 +119,22 @@ class  find:
 
     def Turn(boolArr):
         startIndex = []
-        fuckingManualIndex = 0
-        switch = False
+        switch = True
         prevT = False
         prevF = True
-        for x in boolArr:
+        for index,x in enumerate(boolArr):
             if x == switch and switch == False:
                 switch = True
                 if prevF == x:
-                    startIndex.append(fuckingManualIndex)
+                    startIndex.append(index)
                 prevF = x
             elif (x == switch and switch == True):
                 switch = False
                 
                 if prevT == x:
-                    startIndex.append(fuckingManualIndex)
+                    startIndex.append(index)
                 prevT = x
-            
-            fuckingManualIndex += 1
+
 
         index = find.noise(startIndex)
 
@@ -184,6 +180,10 @@ class export:
         plt.plot(x,y,color='g')
         plt.show()
 
+    def showGraph(t):
+        plt.plot(t)
+        plt.show()
+
 def main():
     x,y = getStuff.getData()
     grad = find.gradient_calculator(x,y)
@@ -191,11 +191,10 @@ def main():
 
     peakValues = find.Peaks(grad)
 
-    Index2 = find.Index(peakValues, grad)
-    print(Index2)
+    Index = find.Index(peakValues, grad)
 
     z = find.biggerOrNot(grad)
-    Index = find.Turn(z)
+    Index2 = find.Turn(z)
     export.printGraph(x,y,Index)
 
 
