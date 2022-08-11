@@ -79,6 +79,7 @@ class  find:
         z = []
         for i in range(x.count()):
             z.append(x[i]/y[i])
+        
         return z
 
     def noise(indexList):
@@ -144,13 +145,21 @@ class  find:
         return index
 
     def Peaks(z):
-        z.sort()
+        sortedList = sorted(z)
         
-        botTurn = z[0:3]
-        topTurn = z[-4:-1]
+        botTurn = sortedList[0:3]
+        topTurn = sortedList[-4:-1]
 
-        print(botTurn,topTurn)
+        return botTurn, topTurn
 
+    def Index(pV,grad):
+        Index = []
+        
+        for x in pV:
+            for y in x:
+                Index.append(grad.index(y))
+
+        return Index
 
 class export:
 
@@ -179,7 +188,12 @@ def main():
     x,y = getStuff.getData()
     grad = find.gradient_calculator(x,y)
 
-    Index2 = find.Peaks(grad)
+
+    peakValues = find.Peaks(grad)
+
+    Index2 = find.Index(peakValues, grad)
+    print(Index2)
+
     z = find.biggerOrNot(grad)
     Index = find.Turn(z)
     export.printGraph(x,y,Index)

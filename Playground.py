@@ -1,8 +1,11 @@
-if -1 < 0:
-    print("hi")
 
 def main():
-    print("Yeah")
+    index = []
+    arr = [1,2,3,3,4,5,6,7,8]
+
+    for x in arr:
+        index.append(arr.index(x))
+        print(index)
 
 
 if __name__ == "__main__":
