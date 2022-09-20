@@ -17,7 +17,6 @@ class getStuff:
         return file
 
     def getData():
-        i = 0
         file = open(getStuff.getFile())
         cont = file.readlines()
 
