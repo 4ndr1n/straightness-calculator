@@ -44,20 +44,18 @@ class getStuff:
         return x,y
 
 class ML:
-    def dataprep(data):
-        x = data['long']
-        y = data['lat']
-        print(x,data['lat'])
+    def dataprep(x,y):
+        
+        
+        data_dev = 
+        
 
 
 
 def main():
-    print("hi")
-    data = getStuff.getData()
-    print(data)
-    ML.dataprep(data)
+    x,y = getStuff.getData()
+    print()
+    ML.dataprep(x,y)
 
-
-
-if __name__ == "__main__()":
+if __name__ == "__main__":
     main()
