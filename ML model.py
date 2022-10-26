@@ -45,16 +45,24 @@ class getStuff:
 
 class ML:
     def dataprep(x,y):
+        y = np.array(y)
+        x = np.array(x)
+        data = np.concatenate((x,y),axis=0)
+        print(data)
         
+
+
         
-        data_dev = 
+        data_dev = data[0:100].T
+
+
+
         
 
 
 
 def main():
     x,y = getStuff.getData()
-    print()
     ML.dataprep(x,y)
 
 if __name__ == "__main__":
