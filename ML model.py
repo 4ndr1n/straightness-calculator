@@ -48,21 +48,22 @@ class ML:
         y = np.array(y)
         x = np.array(x)
         data = np.stack((x,y),axis=0)
+        pd.DataFrame(data).to_csv('/Users/Andrin/Desktop/data.csv')
 
         m,n = data.shape
-
-        np.random.shuffle(data)
+        print(m,n)
         
-        data_dev = data[0:2,0:100].T
+        data_dev = data[0:3,0:100].T
         
         Y_dev = data_dev[0:100,0]
         X_dev = data_dev[0:100,1]
         
-        data_train = data[100:m].T
+        data_train = data[0:3,100:m].T
         Y_train = data_train[0:m]
         X_train = data_train[1:n]
         
-        pd.DataFrame(Y_train).to_csv('/Users/Andrin/Desktop/data.csv')
+        pd.DataFrame(data_train).to_csv('/Users/Andrin/Desktop/data_dev.csv')
+        
 
 
 def main():
