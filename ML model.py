@@ -48,27 +48,58 @@ class ML:
         y = np.array(y)
         x = np.array(x)
         data = np.stack((x,y),axis=0)
-        pd.DataFrame(data).to_csv('/Users/Andrin/Desktop/data.csv')
 
         m,n = data.shape
-        print(m,n)
         
         data_dev = data[0:3,0:100].T
         
-        Y_dev = data_dev[0:100,0]
-        X_dev = data_dev[0:100,1]
+        X_dev = data_dev[0:100,0]
+        Y_dev = data_dev[0:100,1]
         
-        data_train = data[0:3,100:m].T
-        Y_train = data_train[0:m]
-        X_train = data_train[1:n]
-        
-        pd.DataFrame(data_train).to_csv('/Users/Andrin/Desktop/data_dev.csv')
+        data_train = data[0:3,100:n]
+        X_train = data_train[0]
+        Y_train = data_train[1]
+
+
+        return X_dev, Y_dev, X_train, Y_train
+
+    def init_params():
+        W1 = np.random.rand(10, 784) -0.5
+        b1 = np.random.rand(10,1) -0.5
+        W2 = np.random.rand(10,10) - 0.5
+        b2 = np.random.rand(10,1) - 0.5
+        return W1,b1,W2,b2
+
+    def ReLU(Z):
+        return np.maximum(Z,0)
+
+    def forward_prop(W1,b1,W2,b2,X):
+        Z1 = W1.dot(X) + b1
+        A1 = ML.ReLU(Z1)
+        Z2 = W2.dot(A1) + b2
+        A2 = ML.ReLU(Z2)
+        return Z1, A1, Z2, A2
+
+
+    def ReLU_deriv(Z):
+        return Z > 0
+
+    
+    def back_prop(Z1,A1,Z2,A2,W2,X,Y,m):
+        dZ2 = ML.ReLU_deriv(Z2) - Y
+        dW2 = 1 / m * dZ2.dot(A1.T)
+        db2 = 1 / m * np.sum(dZ2)
+        dZ1 = W2.T.dot(dZ2) * ML.ReLU_deriv(Z1)
+        dW1 = 1 / m * dZ1.dot(X.T)
+        db1 = 1 / m * np.sum(dZ1)
+        return dW1, db1, dW2, db2
+
         
 
 
 def main():
     x,y = getStuff.getData()
-    ML.dataprep(x,y)
+    X_dev,Y_dev,X_train,Y_train = ML.dataprep(x,y)
 
 if __name__ == "__main__":
     main()
