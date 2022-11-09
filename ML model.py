@@ -134,13 +134,12 @@ class test:
         return predictions
 
     def predictions(index, W1, b1, W2, b2,X_train,Y_train):
-        current_image = X_train[:,index,None]
         prediction = ML.make_predictions(X_train[:, index, None], W1,b1,W2,b2)
         label = Y_train[index]
         print("Prediction: ",prediction)
         print("Label:",label)
 
-        
+
         plt.show()
 
 
@@ -151,6 +150,9 @@ def main():
     W1,b1,W2,b2 = ML.gradient_descent(X_train,Y_train, 0.01,500)
 
     test.prediction()
+
+    dev_predictions = test.make_predictions(X_dev,W1,b1,W2,b2)
+    ML.get_accuracy(dev_predictions, Y_dev)
 
 
 if __name__ == "__main__":
