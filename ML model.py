@@ -133,16 +133,14 @@ class test:
         predictions = ML.get_predictions(A2)
         return predictions
 
-    def test_predictions(index, W1, b1, W2, b2,X_train,Y_train):
+    def predictions(index, W1, b1, W2, b2,X_train,Y_train):
         current_image = X_train[:,index,None]
         prediction = ML.make_predictions(X_train[:, index, None], W1,b1,W2,b2)
         label = Y_train[index]
         print("Prediction: ",prediction)
         print("Label:",label)
 
-        current_image = current_image.reshape((28,28))* 255
-        plt.gray()
-        plt.imshow(current_image, interpolation='nearest')
+        
         plt.show()
 
 
@@ -151,6 +149,8 @@ def main():
     X_dev,Y_dev,X_train,Y_train = ML.dataprep(x,y)
 
     W1,b1,W2,b2 = ML.gradient_descent(X_train,Y_train, 0.01,500)
+
+    test.prediction()
 
 
 if __name__ == "__main__":
