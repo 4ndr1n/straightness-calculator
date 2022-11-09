@@ -130,7 +130,7 @@ class test:
 
     def make_predictions(X,W1,b1,W2,b2):
         _,_,_,A2 = ML.forwards_prop(W1,b1,W2,b2,X)
-        predictions = ML.get_predictinos(A2)
+        predictions = ML.get_predictions(A2)
         return predictions
 
     def test_predictions(index, W1, b1, W2, b2,X_train,Y_train):
@@ -145,16 +145,13 @@ class test:
         plt.imshow(current_image, interpolation='nearest')
         plt.show()
 
-   
-
-
-
 
 def main():
     x,y = getStuff.getData()
     X_dev,Y_dev,X_train,Y_train = ML.dataprep(x,y)
 
     W1,b1,W2,b2 = ML.gradient_descent(X_train,Y_train, 0.01,500)
+
 
 if __name__ == "__main__":
     main()
