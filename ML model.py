@@ -62,12 +62,12 @@ class ML:
         Y_train = data_train[1]
 
 
-        return X_dev, Y_dev, X_train, Y_train
+        return X_dev, Y_dev, X_train, Y_train, m, n
 
-    def init_params():
-        W1 = np.random.rand(10, 784) -0.5
+    def init_params(x):
+        W1 = np.random.rand(10, x) -0.5
         b1 = np.random.rand(10,1) -0.5
-        W2 = np.random.rand(10,10) - 0.5
+        W2 = np.random.rand(10,x) - 0.5
         b2 = np.random.rand(10,1) - 0.5
         return W1,b1,W2,b2
 
@@ -75,6 +75,7 @@ class ML:
         return np.maximum(Z,0)
 
     def forward_prop(W1,b1,W2,b2,X):
+        print(X.shape,W1.shape)
         Z1 = W1.dot(X) + b1
         A1 = ML.ReLU(Z1)
         Z2 = W2.dot(A1) + b2
@@ -111,11 +112,11 @@ class ML:
         print(predictions, Y)
         return np.sum(predictions == Y) / Y.size
 
-    def gradient_descent(X,Y,alpha, iterations):
-        W1, b1, W2, b2, = ML.init_params()
+    def gradient_descent(X,Y,alpha, iterations,m):
+        W1, b1, W2, b2, = ML.init_params(np.count_nonzero(X))
         for i in range(iterations):
             Z1, A1, Z2, A2 = ML.forward_prop(W1,b1,W2,b2,X)
-            dW1, db1, dW2, db2 = ML.backwards_prop(Z1,A1,Z2,A2,W1,W2,X,Y)
+            dW1, db1, dW2, db2 = ML.back_prop(Z1,A1,A2,W2,X,Y,m)
 
             W1,b1,W2,b2 = ML.update_params(W1,b1,W2,b2,dW1,db1,dW2,db2,alpha)
 
@@ -145,9 +146,9 @@ class test:
 
 def main():
     x,y = getStuff.getData()
-    X_dev,Y_dev,X_train,Y_train = ML.dataprep(x,y)
+    X_dev,Y_dev,X_train,Y_train,m,n = ML.dataprep(x,y)
 
-    W1,b1,W2,b2 = ML.gradient_descent(X_train,Y_train, 0.01,500)
+    W1,b1,W2,b2 = ML.gradient_descent(X_train,Y_train, 0.01,500,m)
 
     test.prediction()
 
