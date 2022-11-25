@@ -1,4 +1,8 @@
-x = 1
+import numpy as np
 
-if x > 0:
-    print("hi")
+
+a = np.array([1, 2, 3])
+
+b = np.array([4, 5, 6])
+
+print("a+b:", a+b)

@@ -87,6 +87,7 @@ class ML:
 
     
     def back_prop(Z1,A1,A2,W2,X,Y,m):
+        Y = np.array(Y)
         dZ2 = A2 - Y
         dW2 = 1 / m * dZ2.dot(A1.T)
         db2 = 1 / m * np.sum(dZ2)
