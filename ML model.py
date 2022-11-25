@@ -67,15 +67,14 @@ class ML:
     def init_params(x):
         W1 = np.random.rand(10, x) -0.5
         b1 = np.random.rand(10,1) -0.5
-        W2 = np.random.rand(10,x) - 0.5
-        b2 = np.random.rand(10,1) - 0.5
+        W2 = np.random.rand(x,10) - 0.5
+        b2 = np.random.rand(x,1) - 0.5
         return W1,b1,W2,b2
 
     def ReLU(Z):
         return np.maximum(Z,0)
 
     def forward_prop(W1,b1,W2,b2,X):
-        print(X.shape,W1.shape)
         Z1 = W1.dot(X) + b1
         A1 = ML.ReLU(Z1)
         Z2 = W2.dot(A1) + b2
