@@ -85,6 +85,12 @@ class ML:
     def ReLU_deriv(Z):
         return Z > 0
 
+    def yshaper(Y):
+        x = np.vstack((Y,Y,Y,Y,Y,Y,Y,Y,Y,Y))
+        print(x)
+
+        return x
+
     
     def back_prop(Z1,A1,A2,W2,X,Y,m):
         Y = np.array(Y)
@@ -146,6 +152,7 @@ class test:
 
 def main():
     x,y = getStuff.getData()
+    y = ML.yshaper(y)
     X_dev,Y_dev,X_train,Y_train,m,n = ML.dataprep(x,y)
 
     W1,b1,W2,b2 = ML.gradient_descent(X_train,Y_train, 0.01,500,m)
